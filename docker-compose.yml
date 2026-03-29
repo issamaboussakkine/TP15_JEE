@@ -1,0 +1,45 @@
+services:
+  # 1. La Base de données MySQL
+  db-issam:
+    image: mysql:8.0
+    container_name: mysql-db-issam
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: issam_demo_db
+    ports:
+      - "3307:3306" # Accès local via port 3307
+    volumes:
+      - mysql-data-issam:/var/lib/mysql
+
+  # 2. Ton Application Spring Boot
+  app-spring-issam:
+    image: ens/spring-docker-issam:1.0
+    container_name: spring-app-issam
+    restart: on-failure # Redémarre si MySQL n'est pas encore prêt
+    depends_on:
+      - db-issam
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-issam:3306/issam_demo_db?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  # 3. Extension : Interface graphique (phpMyAdmin)
+  phpmyadmin-issam:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-issam
+    restart: always
+    depends_on:
+      - db-issam
+    environment:
+      PMA_HOST: db-issam
+      PMA_USER: root
+      PMA_PASSWORD: 1234
+    ports:
+      - "8084:80" # Accès via http://localhost:8084
+
+volumes:
+  mysql-data-issam:

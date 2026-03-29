@@ -1,0 +1,43 @@
+############################################################
+# Fichier .gitignore - Projet Dockerisé par ISSAM
+# Ce fichier définit les éléments à ne pas inclure dans Git
+############################################################
+
+# --- Dossiers de Build et Aide (Générés par Maven/Spring) ---
+HELP.md                   # Aide de Spring Initializr
+target/                   # Contient le JAR compilé (ne pas uploader, trop lourd)
+.mvn/wrapper/maven-wrapper.jar # Binaire du wrapper Maven
+!**/src/main/**/target/   # Garde la structure Maven
+!**/src/test/**/target/
+
+# --- Spring Tool Suite (STS) - Configs d'ISSAM ---
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# --- IntelliJ IDEA (Paramètres personnels) ---
+.idea                     # Préférences de l'IDE IntelliJ
+*.iws
+*.iml
+*.ipr
+
+# --- NetBeans (Fichiers de projet) ---
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# --- VS Code (Paramètres de l'éditeur d'ISSAM) ---
+.vscode/                  # Dossier de configuration VS Code local
+
+############################################################
+# Fin du fichier - Configuré pour le TP Docker d'ISSAM
+############################################################
